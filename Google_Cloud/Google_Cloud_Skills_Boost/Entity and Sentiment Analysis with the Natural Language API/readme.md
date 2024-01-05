@@ -37,7 +37,7 @@ cat result.json
 ```
 
 ```json
-student-00-e5da90ccbc79@linux-instance:~$ export API_KEY=AIzaSyAPzKKqD_kKemWMXyFXZUpTogrc_w27J1M
+student-00-e5da90ccbc79@linux-instance:~$ export API_KEY=:)))))))
 student-00-e5da90ccbc79@linux-instance:~$ nano request.json
 student-00-e5da90ccbc79@linux-instance:~$ curl "https://language.googleapis.com/v1/documents:analyzeEntities?key=${API_KEY}" \
   -s -X POST -H "Content-Type: application/json" --data-binary @request.json > result.json
