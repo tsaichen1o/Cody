@@ -41,7 +41,20 @@ int migratoryBirds(vector<int> arr) {
             maxNum = pair.first;
         }
     }
-    
+
+/*
+    這行程式碼使用了範圍遍歷（range-based for loop）的語法。
+
+    const auto& pair：這部分宣告了一個參考 pair，它的類型會根據 count 的元素的類型自動推斷。
+    使用 auto 關鍵字可以讓編譯器自動推斷型別。const 關鍵字表示 pair 是常量，不能修改其值。
+    & 符號表示 pair 是一個參考，即對 count 中的元素進行遍歷時，我們使用的是它們的參考而不是複製。
+
+    : count：這部分表示我們要對 count 進行遍歷。count 是一個 std::unordered_map。
+
+    這行程式碼的作用是遍歷 count 中的每一個元素，對於每一個元素，我們將其參考命名為 pair。
+    在每次迭代中，pair 中存儲了一個鍵值對，其中鍵是鳥的類型編號，值是該類型鳥的數量。
+*/
+
     // for (int i = 1; i <= 5; ++i) {
     //     if (arr[i - 1] == i) {
     //         count[i]++;
