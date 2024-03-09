@@ -44,6 +44,21 @@ int pickingNumbers(vector<int> a) {
     return maxCount;
 }
 
+int pickingNumbers(vector<int> a) {
+    int maxCount = 0;
+    int count[100] = {};
+    
+    for (int num : a) {
+        count[num]++;
+    }
+
+    for (int i = 1; i < 100; i++) {
+        maxCount = max(maxCount, count[i] + count[i - 1]);
+    }
+    
+    return maxCount;
+}
+
 int main()
 {
     ofstream fout(getenv("OUTPUT_PATH"));
