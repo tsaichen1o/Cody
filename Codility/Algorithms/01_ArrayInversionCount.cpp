@@ -1,7 +1,7 @@
 /**
  * @file 01_ArrayInversionCount.cpp
  * @author auntieyafen (b09705059@gmail.com)
- * @brief 
+ * @brief O(N * log(N))
  * @version 0.1
  * @date 2024-03-09
  * 
