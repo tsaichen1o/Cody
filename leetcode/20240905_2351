@@ -1,0 +1,37 @@
+The reason why `find(c)` returns an iterator pointing to `end()` when an element is not found is tied to how containers like `unordered_set` or `set` are designed in C++.
+
+### Understanding `end()`
+
+- **`end()`** is a special iterator that represents one past the last valid element in a container.
+- It's used to mark the **end** of the container's range and does **not** point to any valid element.
+- Iterators in C++ containers generally traverse from `begin()` (first element) to `end()` (one past the last element), meaning that `end()` is a "sentinel" value signaling you're done iterating.
+
+### Why `find(c)` returns `end()` when not found
+
+- The `find(c)` function is designed to return an iterator to the element `c` if it exists in the container. This iterator can be used to access the element directly.
+- If `find(c)` doesn't find the element `c`, it needs to return something that clearly signals "element not found." Instead of returning `null` or some error, the C++ Standard Library uses `end()` as this special marker.
+- So, when `find(c)` returns `end()`, it's like saying, "I couldn't find the element, and you've reached the end of the container."
+
+### Why this approach?
+
+1. **Consistency**: Iterators in C++ containers operate within a range from `begin()` to `end()`. This means code that traverses or searches a container can use the same `end()` marker, regardless of the operation.
+2. **Simplicity**: Using `end()` as a standard way to signal "not found" simplifies the interface. There's no need for a special return value or error code.
+3. **Efficiency**: Returning an iterator that is part of the container's internal structure (like `end()`) avoids unnecessary complexity or overhead.
+
+### Example:
+
+```cpp
+unordered_set<char> seen = {'a', 'b', 'c'};
+
+// Searching for a character that exists
+auto it = seen.find('b');  // 'b' is found, 'it' points to 'b'
+
+// Searching for a character that doesn't exist
+it = seen.find('x');  // 'x' is not found, 'it' will be seen.end()
+
+if (it == seen.end()) {
+    // 'x' wasn't found in the set
+}
+```
+
+In this example, `find('x')` returns `seen.end()` because `'x'` is not present in the set.
