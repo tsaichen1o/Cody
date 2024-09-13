@@ -13,6 +13,16 @@ class Solution {
 public:
     vector<int> xorQueries(vector<int>& arr, vector<vector<int>>& queries) {
         vector<int> answer;
+        cout << arr.size() << endl;
+        int tempAns = 0;
+        for (int i = 0; i < queries.size(); i++) {
+            for (int j = queries[i][0]; j <= queries[i][1]; j++) {
+                tempAns = tempAns ^ arr[j];
+            }
+            answer.push_back(tempAns);
+            tempAns = 0;
+        }
+        return answer;
     }
 };
 
