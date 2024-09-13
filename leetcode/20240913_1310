@@ -1,0 +1,48 @@
+To improve the performance of your `xorQueries` function, you can utilize a **prefix XOR array**. Instead of recalculating the XOR for every query from scratch, you can preprocess the XOR values in a cumulative manner. This allows each query to be resolved in constant time (`O(1)`), reducing the overall time complexity from `O(q * n)` (where `q` is the number of queries and `n` is the number of elements in the array) to `O(q + n)`.
+
+### Steps to optimize:
+1. **Build a prefix XOR array**: This array will store cumulative XOR values up to each index. This way, the XOR of any subarray can be computed using the formula `prefix[r + 1] ^ prefix[l]`.
+   
+2. **Use the prefix array to compute XOR for queries in constant time**.
+
+### Optimized Code:
+```cpp
+class Solution {
+public:
+    vector<int> xorQueries(vector<int>& arr, vector<vector<int>>& queries) {
+        // Step 1: Create the prefix XOR array
+        int n = arr.size();
+        vector<int> prefixXOR(n + 1, 0);  // prefixXOR[i] stores XOR of arr[0] to arr[i-1]
+        
+        // Step 2: Compute cumulative XOR values
+        for (int i = 1; i <= n; i++) {
+            prefixXOR[i] = prefixXOR[i - 1] ^ arr[i - 1];
+        }
+        
+        // Step 3: Answer each query in constant time
+        vector<int> answer;
+        for (const auto& query : queries) {
+            int left = query[0], right = query[1];
+            // XOR from arr[left] to arr[right] is calculated as:
+            answer.push_back(prefixXOR[right + 1] ^ prefixXOR[left]);
+        }
+        
+        return answer;
+    }
+};
+```
+
+### Explanation:
+1. **Prefix XOR array**:
+   - `prefixXOR[i]` stores the XOR of all elements from `arr[0]` to `arr[i-1]`.
+   - This allows us to quickly compute the XOR of any subarray `[left, right]` as:
+     ```cpp
+     prefixXOR[right + 1] ^ prefixXOR[left]
+     ```
+
+2. **Time Complexity**:
+   - **Preprocessing (Prefix XOR)**: `O(n)` where `n` is the size of the array.
+   - **Answering Queries**: Each query can be answered in constant time `O(1)`, so for `q` queries, this is `O(q)`.
+   - **Overall**: `O(n + q)`, which is much faster than the original `O(q * n)` solution.
+
+This optimized approach efficiently handles large arrays and multiple queries.
