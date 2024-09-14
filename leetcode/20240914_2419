@@ -1,0 +1,52 @@
+To find the **maximum sum of a subarray** with low time complexity, the best approach is **Kadane's Algorithm**. This algorithm runs in **O(n)** time, where `n` is the length of the array. It works by iterating through the array once while keeping track of the current subarray sum and the maximum subarray sum found so far.
+
+### Steps of Kadane's Algorithm:
+1. **Initialize variables**:
+   - `max_sum`: To store the maximum sum found so far.
+   - `current_sum`: To store the sum of the current subarray being considered.
+   
+2. **Iterate through the array**:
+   - For each element, decide whether to:
+     - Add the element to the current subarray (`current_sum`).
+     - Start a new subarray from the current element.
+   - Update the `max_sum` if the current subarray sum (`current_sum`) exceeds the previous maximum.
+
+### Kadane's Algorithm Code:
+```cpp
+#include <vector>
+#include <algorithm>  // For std::max
+using namespace std;
+
+int maxSubArray(vector<int>& nums) {
+    int max_sum = nums[0];  // Initialize with the first element of the array
+    int current_sum = nums[0];  // Initialize with the first element
+    
+    for (int i = 1; i < nums.size(); i++) {
+        // Either extend the current subarray or start a new subarray
+        current_sum = max(nums[i], current_sum + nums[i]);
+        
+        // Update the maximum subarray sum found so far
+        max_sum = max(max_sum, current_sum);
+    }
+    
+    return max_sum;
+}
+```
+
+### Explanation:
+1. **Initialization**: Start by assuming the first element is both the current subarray sum and the maximum subarray sum.
+2. **Iteration**: For each subsequent element:
+   - Check if adding the current element to the existing subarray gives a larger sum than starting a new subarray with just the current element.
+   - Update `current_sum` with the larger value.
+   - If `current_sum` is greater than `max_sum`, update `max_sum`.
+   
+3. **Return**: After the loop, `max_sum` will hold the maximum sum of any subarray.
+
+### Example:
+For the array `nums = [-2,1,-3,4,-1,2,1,-5,4]`, Kadane's algorithm will return `6`, because the subarray `[4,-1,2,1]` has the maximum sum.
+
+### Time Complexity:
+- **Time complexity**: `O(n)` because it makes a single pass through the array.
+- **Space complexity**: `O(1)` as it only uses a few extra variables (constant space).
+
+This is the most efficient algorithm for finding the maximum subarray sum.
