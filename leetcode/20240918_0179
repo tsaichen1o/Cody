@@ -1,0 +1,49 @@
+The solution you provided for the "Largest Number" problem is well-written and efficient, but there are a few potential improvements or optimizations you can make. I'll explain them below:
+
+### 1. **Avoid Redundant Conversion**
+Instead of creating a new vector `snums` to hold the string versions of `nums`, you can directly work on `nums` itself by sorting with a custom comparator. This will save space and avoid unnecessary string operations during the initial conversion.
+
+### 2. **Efficient String Concatenation**
+While concatenating strings in a loop like `res += s` works fine, you could use a `stringstream` to potentially make the concatenation faster for large inputs.
+
+### Optimized Code:
+
+```cpp
+class Solution {
+public:
+    string largestNumber(vector<int>& nums) {
+        // Custom comparator to sort the numbers in the desired order
+        sort(nums.begin(), nums.end(), [](int a, int b) {
+            string sa = to_string(a), sb = to_string(b);
+            return sa + sb > sb + sa; // Sort based on concatenated result
+        });
+
+        // Handle the edge case where the largest number would be "0"
+        if (nums[0] == 0) return "0";
+
+        // Efficient concatenation of the sorted numbers
+        stringstream res;
+        for (int num : nums) {
+            res << num;
+        }
+
+        return res.str();
+    }
+};
+```
+
+### Improvements:
+
+1. **Avoid Extra Vector**: Instead of creating `snums`, the comparator works directly on the integers. This reduces the space complexity slightly, as we don't need an additional vector of strings.
+   
+2. **Custom Comparator**: The sorting logic remains the same. We concatenate `a + b` and `b + a` in the comparator to determine the correct order of elements, which ensures that the result is lexicographically largest.
+
+3. **Edge Case**: We handle the case where the result is `"0"` by checking if the first number is `0` after sorting. If the largest number is `0`, the entire result must be `"0"`.
+
+4. **Efficient Concatenation**: Using a `stringstream` for concatenation can improve performance, especially when working with large numbers of elements, as it avoids multiple reallocations.
+
+### Time Complexity:
+- **O(n log n)**: Sorting dominates the time complexity, where `n` is the number of integers in `nums`. String comparisons during sorting are bounded by the maximum number of digits in the integers.
+  
+### Space Complexity:
+- **O(n)**: We only store the sorted numbers and the result string.
