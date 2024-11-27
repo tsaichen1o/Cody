@@ -423,6 +423,29 @@ void post_order_traversal(Node<int>* root) {
 `Outpu: 4 5 2 6 7 3 1`
 
 ### Depth First Search
+
+```cpp
+void dfs(int node) {
+    // Base case, or end condition
+    if (condition_met) {
+        return;
+    }
+
+    // Mark the node as visited if needed
+    visited[node] = true;
+
+    // Explore all possible children or adjacent nodes
+    for (auto nextNode : getNeighbors(node)) {
+        if (!visited[nextNode]) {
+            dfs(nextNode);
+        }
+    }
+
+    // Backtracking step if required
+    // visited[node] = false;
+}
+
+```
 ```cpp
 Node<int>* dfs(Node<int>* root, int target) {
     if (root == nullptr) return nullptr;
