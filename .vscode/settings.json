@@ -3,6 +3,9 @@
         "*.html": "html",
         "*.js": "javascriptreact",
         "string": "cpp",
-        "string_view": "cpp"
+        "string_view": "cpp",
+        "deque": "cpp",
+        "iosfwd": "cpp",
+        "vector": "cpp"
     }
 }
