@@ -52,6 +52,27 @@ In practice, `++i` can be slightly more efficient than `i++` because post-increm
 
 ---
 
+Lambda 函式（Lambda Function），也稱為匿名函式（Anonymous Function），是一種未命名的短小函式，主要用於簡化代碼中的即時性操作。在 C++ 中，lambda 函式的語法如下：
+
+```cpp
+auto lambda = [](參數列表) -> 返回類型 {
+    // 函式主體
+};
+```
+
+例如，以下是一個 lambda 函式示範用於計算兩數相加：
+
+```cpp
+auto sum = [](int a, int b) -> int {
+    return a + b;
+};
+int result = sum(3, 4); // result 為 7
+```
+
+Lambda 函式可以簡化代碼、避免重複定義函式，常見於 STL 算法中作為回呼函式（如 `sort` 的比較器）。
+
+---
+
 ## `[MS]` Monotonic Stack
   This method is effective when you need to determine the next larger or smaller member for each element in a list, as it can naturally be determined when you insert element into the stack in order.
   If there are other restrictions, such as the next larger/smaller member must be within a certain distance, then we can use a deque instead, and pop from the end of the deque when the range is exceeded.
@@ -342,3 +363,6 @@ while (!rottenOrangeSpots.empty()) {
 ```
 
 這樣可以依次訪問每個元素並且從隊列中取出它。`queue` 中的元素只能通過 `front()` 和 `pop()` 的方式訪問和移除，而沒有像 `vector` 那樣的迭代器來遍歷整個容器。
+
+## `[I]` Interval
+
