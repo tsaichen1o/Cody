@@ -128,6 +128,23 @@ Lambda 函式可以簡化代碼、避免重複定義函式，常見於 STL 算�
 
 ---
 
+In C++, `static` can be used to define variables or functions with specific behaviors:
+
+1. **Static Local Variables**: When declared inside a function, a static variable retains its value between function calls. It is initialized only once.
+2. **Static Class Members**: A static data member belongs to the class rather than to any specific object, meaning it is shared among all instances of the class.
+3. **Static Functions**: A static function inside a class can be called without an instance of the class. It can also be used to indicate internal linkage when defined in a source file.
+
+**When to use**:
+- Use static when you need a variable to retain its value across function calls.
+- In classes, use static members to share a value or behavior across all instances.
+- For limiting the scope of functions or variables to a translation unit (in source files), `static` is useful to prevent external access.
+
+Examples:
+- **Global Scope Management**: Static variables are ideal for managing global data with a limited scope.
+- **Utility Functions**: Static functions in classes are often used for utility operations that don't need access to an instance of the class.
+
+---
+
 ## `[MS]` Monotonic Stack
   This method is effective when you need to determine the next larger or smaller member for each element in a list, as it can naturally be determined when you insert element into the stack in order.
   If there are other restrictions, such as the next larger/smaller member must be within a certain distance, then we can use a deque instead, and pop from the end of the deque when the range is exceeded.
@@ -151,6 +168,8 @@ Lambda 函式可以簡化代碼、避免重複定義函式，常見於 STL 算�
 ## `[HT]` Hash Table
 ## `[SD]` Sliding Window
 ## `[SS]` Substring / Subsequence
+## `[S]` Stack
+## `[TP]` Two Pointers
 ## `[BST]` Binary Search Tree
 ```cpp
   template <typename T>

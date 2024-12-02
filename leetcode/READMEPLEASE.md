@@ -12,5 +12,7 @@
 
 #### C++
 * Remember to add `std::`
+* You may use `static`
+* `const + pass by reference`: Ensuring Parameters Are Not Modified and Avoiding Unnecessary Copies
 
 GO for it!
