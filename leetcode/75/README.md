@@ -228,6 +228,85 @@ Space Complexity: `O(h)` stack memory which is `O(n)` in the worst case.
 <b>BFS</b> is better for: finding nodes close/closest to the root
 
 ```cpp
+std::vector<int> get_neighbors(std::vector<std::vector<int>>& graph, int node) {
+    return graph[node];
+}
+
+// BFS template
+int bfs(std::vector<std::vector<int>>& graph, int root, int target) {
+    std::queue<int> q;
+    q.push(root);
+    std::unordered_set<int> visited;
+    visited.emplace(root);
+    int level = 0;
+    while (!q.empty()) {
+        int n = q.size();
+        for (int i = 0; i < n; i++) {
+            int node = q.front();
+            if (node == target) return level;
+            for (int neighbor : get_neighbors(graph, node)) {
+                if (visited.count(neighbor)) continue;
+                q.push(neighbor);
+                visited.emplace(neighbor);
+            }
+            q.pop();
+        }
+        // increment level after we have processed all nodes of the level
+        level++;
+    }
+    return level;
+}
+```
+
+!!important!!
+```cpp
+#include <vector>
+#include <queue>
+#include <unordered_set>
+#include <utility>
+
+int num_rows = grid.size();
+int num_cols = grid[0].size();
+
+std::vector<std::pair<int, int>> get_neighbors(std::pair<int, int> coord) {
+    int row = coord.first;
+    int col = coord.second;
+    int delta_row[4] = {-1, 0, 1, 0};
+    int delta_col[4] = {0, 1, 0, -1};
+    std::vector<std::pair<int, int>> res;
+    for (int i = 0; i < 4; i++) {
+        int neighbor_row = row + delta_row[i];
+        int neighbor_col = col + delta_col[i];
+
+        if (0 <= neighbor_row && neighbor_row < num_rows &&
+            0 <= neighbor_col && neighbor_col < num_cols) {
+            res.emplace_back(neighbor_row, neighbor_col);
+        }
+    }
+    return res;
+}
+
+void bfs(std::pair<int, int> starting_node) {
+    std::queue<std::pair<int, int>> q;
+    q.push(starting_node);
+    std::unordered_set<std::pair<int, int>> visited;
+    visited.emplace(starting_node);
+
+    while (!q.empty()) {
+        std::pair<int, int> node = q.front();
+        q.pop();
+        for (auto neighbor : get_neighbors(node)) {
+            if (visited.count(neighbor)) continue;
+            // Do stuff with the node if required
+            // ...
+            q.push(neighbor);
+            visited.emplace(neighbor);
+        }
+    }
+}
+```
+
+```cpp
     vector<vector<int>> level_order_traversal(Node<int>* root) {
         vector<vector<int>> res;
         if (root == nullptr) return res;

@@ -127,7 +127,7 @@ int binary_search(vector<int> arr, int target) {
 We keep a variable boundary_index that represents the currently recorded leftmost true's index. If the current element is true, then we update boundary_index with its index and discard everything to the right including the current element itself since its index has been recorded by the variable.
 
 ##### Let the problem be Feasible or not to solve
-  ```cpp
+```cpp
     int binary_search(vector<int> arr, int target) {
         int left = 0;
         int right = arr.size() - 1;
@@ -143,7 +143,7 @@ We keep a variable boundary_index that represents the currently recorded leftmos
         }
         return firstTrueIndex;
     }
-    ```
+```
 
 舉例：
 * <b> First Element Not Smaller Than Target </b>
@@ -153,7 +153,8 @@ We keep a variable boundary_index that represents the currently recorded leftmos
 * <b> Find Element in Sorted Array with Duplicates </b>
   * `feasible = (arr[mid] == target)`
 * <b> Square Root Estimation </b>
-   ```cpp
+
+```cpp
     int square_root(int n) {
         if (n == 0) return 0;
         int left = 1;
@@ -172,7 +173,7 @@ We keep a variable boundary_index that represents the currently recorded leftmos
         }
         return res - 1;
     }
-  ```
+```
   If there is no element in the array whose square equals n, then we want to return the largest element that is smaller than the square root of n. In this case, we are actually looking for the last false. We can subtract 1 from the index after we find the first true from binary search.
 
 沒有 sorted，舉例：
