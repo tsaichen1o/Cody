@@ -145,6 +145,87 @@ Examples:
 
 ---
 
+`i++` 和 `++i` 都用來增加變數的值，但它們有細微的差異：
+
+1. **`i++`（後置遞增）**：先使用變數的原始值，然後再將其增加1。例如，`int a = i++` 會先將 `i` 的原始值賦值給 `a`，然後再將 `i` 增加1。
+
+2. **`++i`（前置遞增）**：先將變數增加1，再使用增加後的值。例如，`int a = ++i` 會先將 `i` 增加1，然後將其新值賦值給 `a`。
+
+這兩者的執行結果可能在語句順序上產生不同影響，尤其是在複雜的表達式中。
+
+`i++` and `++i` are both used to increment a variable's value by 1, but they have subtle differences:
+
+1. **`i++` (post-increment)**: This increments the value after it is used. For example, `int a = i++` assigns the current value of `i` to `a`, then increments `i` by 1.
+
+2. **`++i` (pre-increment)**: This increments the value before it is used. For example, `int a = ++i` increments `i` first, then assigns the new value to `a`.
+
+The order of increment can impact the outcome, especially in more complex expressions.
+
+`i++` and `++i` are both used to increment a variable's value by 1, but they have subtle differences:
+
+1. **`i++` (post-increment)**: This increments the value after it is used. For example, `int a = i++` assigns the current value of `i` to `a`, then increments `i` by 1.
+
+2. **`++i` (pre-increment)**: This increments the value before it is used. For example, `int a = ++i` increments `i` first, then assigns the new value to `a`.
+
+The order of increment can impact the outcome, especially in more complex expressions.
+
+---
+Here is an overview of the key concepts you should understand:
+
+### **1. Processes and Threads**
+- **Processes**: Independent units that execute an application; they have separate memory spaces and system resources.
+- **Threads**: Lightweight sub-units of processes that share resources like memory; multiple threads within a process can execute concurrently.
+
+Thread is a software concept that map to a hardware functional unit
+
+A **thread** is indeed a software construct, but it also has a direct relationship with hardware functionality. Specifically:
+
+- **Threads** represent units of execution within a process that can be scheduled independently by the operating system. They exist in software as sequences of programmed instructions.
+- In modern multi-core CPUs, threads can map to **hardware execution units** known as cores. Each core can execute a thread, allowing true parallel execution.
+- Advanced CPUs can support **Simultaneous Multithreading (SMT)**, like Intel's Hyper-Threading, where a single core executes multiple threads, improving resource utilization.
+
+Threads are thus closely tied to how hardware manages execution, and they directly leverage the hardware's capabilities to achieve concurrency and parallelism.
+### **2. Concurrency Issues**
+- **Race Conditions**: Occur when multiple threads access shared data simultaneously, leading to unpredictable outcomes.
+- **Data Races**: When two threads write/read shared data concurrently without proper synchronization.
+
+### **3. Locks, Mutexes, Semaphores, and Monitors**
+- **Locks and Mutexes**: Mechanisms to ensure only one thread can access a shared resource at a time, preventing race conditions.
+- **Semaphores**: Signaling mechanisms to control access to a pool of resources, with counting (general) and binary semaphores.
+- **Monitors**: High-level abstraction for synchronizing access to shared resources, often used in programming languages to manage concurrent access.
+
+### **4. Deadlock, Livelock, and Avoidance**
+- **Deadlock**: A state where two or more processes are waiting indefinitely for resources held by each other.
+- **Livelock**: Similar to deadlock, but threads keep changing states without progressing towards completion.
+- **Avoidance**: Techniques include resource ordering, avoiding circular waits, or using protocols like Banker's algorithm.
+
+### **5. Resources Needed by Processes and Threads**
+- **Processes**: Memory, CPU time, file descriptors, and other system resources.
+- **Threads**: Share process resources, like memory and open files, but each thread has its own registers and stack.
+
+### **6. Context Switching**
+- **Definition**: The process of saving the state of a running process/thread and loading the state of another, enabling multitasking.
+- **Initiation**: Initiated by the operating system through software interrupts, system calls, or hardware timers.
+
+### **7. Scheduling**
+- **Scheduling**: Determines which process/thread runs at any given time.
+- **Common Algorithms**: Round-robin, priority-based, shortest job first, and multilevel queue scheduling.
+
+### **8. Modern Concurrency Constructs**
+- With multi-core systems, concurrency is crucial for optimal utilization:
+  - **Atomic Operations**: Simplifies synchronization by ensuring indivisible operations.
+  - **Futures and Promises**: Abstractions that manage results of asynchronous tasks.
+  - **Thread Pools**: Efficient management of concurrent workloads by reusing worker threads.
+  - **Fork/Join Framework**: Splits tasks into smaller pieces, runs them in parallel, and merges results, suitable for divide-and-conquer algorithms.
+
+### **Avoiding Common Issues**
+- **Deadlock Prevention**: Break one of the four Coffman conditions (mutual exclusion, hold-and-wait, no preemption, circular wait).
+- **Concurrency Control**: Using locks or high-level concurrency constructs to protect shared data and avoid race conditions.
+
+Let me know if you need more specific information on any of these topics!
+
+---
+
 ## `[MS]` Monotonic Stack
   This method is effective when you need to determine the next larger or smaller member for each element in a list, as it can naturally be determined when you insert element into the stack in order.
   If there are other restrictions, such as the next larger/smaller member must be within a certain distance, then we can use a deque instead, and pop from the end of the deque when the range is exceeded.
@@ -167,9 +248,27 @@ Examples:
 ## `[SS]` Substring / Subsequence
 ## `[HT]` Hash Table
 ## `[SD]` Sliding Window
+```cpp
+int subarray_sum_fixed(std::vector<int> nums, int k) {
+    int window_sum = 0;
+    for (int i = 0; i < k; ++i) {
+        window_sum += nums[i];
+    }
+    int largest = window_sum;
+    for (int right = k; right < nums.size(); ++right) {
+        int left = right - k;
+        window_sum -= nums[left];
+        window_sum += nums[right];
+        largest = std::max(largest, window_sum);
+    }
+    return largest;
+}
+```
 ## `[SS]` Substring / Subsequence
 ## `[S]` Stack
 ## `[TP]` Two Pointers
+## `[PF]` Prefix Sum
+## `[BT]` Binary Tree
 ## `[BST]` Binary Search Tree
 ```cpp
   template <typename T>
@@ -522,4 +621,222 @@ while (!rottenOrangeSpots.empty()) {
 這樣可以依次訪問每個元素並且從隊列中取出它。`queue` 中的元素只能通過 `front()` 和 `pop()` 的方式訪問和移除，而沒有像 `vector` 那樣的迭代器來遍歷整個容器。
 
 ## `[I]` Interval
+## `[TP]` Topological Sort
+```cpp
+#include <unordered_map>
+#include <vector>
+#include <queue>
+#include <iostream>
 
+// Function to find the in-degree of each node
+std::unordered_map<int, int> find_indegree(const std::unordered_map<int, std::vector<int>>& graph) {
+    std::unordered_map<int, int> indegree;
+    for (const auto& entry : graph) {
+        indegree[entry.first] = 0;
+    }
+    for (const auto& node : graph) {
+        for (const auto& neighbor : node.second) {
+            indegree[neighbor]++;
+        }
+    }
+    return indegree;
+}
+
+// Function to perform topological sort
+std::vector<int> topo_sort(const std::unordered_map<int, std::vector<int>>& graph) {
+    std::vector<int> result;
+    std::queue<int> q;
+    std::unordered_map<int, int> indegree = find_indegree(graph);
+
+    // Add nodes with zero in-degree to the queue
+    for (const auto& entry : indegree) {
+        if (entry.second == 0) {
+            q.emplace(entry.first);
+        }
+    }
+
+    // Process the nodes
+    while (!q.empty()) {
+        int node = q.front();
+        q.pop();
+        result.emplace_back(node);
+
+        for (const auto& neighbor : graph.at(node)) {
+            indegree[neighbor]--;
+            if (indegree[neighbor] == 0) {
+                q.emplace(neighbor);
+            }
+        }
+    }
+
+    if (result.size() == graph.size()) {
+        return result;
+    } else {
+        std::cerr << "Invalid topo sort: graph contains a cycle" << '\n';
+        return {};
+    }
+}
+```
+
+## `[DG]` Direct Graph
+**Cycle in Directed Graph**
+
+Detection of a Cycle in an Directed Graph.
+
+2 Methods to solve this-
+* DFS
+* Kahn's Algorithm (BFS)
+
+#### DFS
+1. Create the graph using the given number of edges and vertices.
+2. Create a recursive function that initializes the current index or vertex, visited, and recursion stack.
+3. Mark the current node as visited and also mark the index in recursion stack.
+4. Find all the vertices which are not visited and are adjacent to the current node. Recursively call the function for those vertices, If the recursive function returns true, return true.
+5. If the adjacent vertices are already marked in the recursion stack then return true.
+6. Create a wrapper class, that calls the recursive function for all the vertices and if any function returns true return true. Else if for all vertices the function returns false return false.
+
+```cpp
+// Time Complexity: O(V + E)
+// Space Complexity: O(V)
+
+class Solution{
+public:
+	bool isCyclicUtil(int v, vector<bool> &visited, vector<bool> &recStack, vector<int> adj[]){
+        
+	    if(visited[v] == false) { 
+			visited[v] = true; 
+			recStack[v] = true; 
+
+			//calling function recursively for all the vertices adjacent to this vertex.
+			for(int i = 0; i < adj[v].size(); ++i) { 
+				if ( !visited[adj[v][i]] && isCyclicUtil(adj[v][i], visited, recStack, adj)) 
+					return true; 
+				else if (recStack[adj[v][i]]) 
+					return true; 
+			} 
+		} 
+		recStack[v] = false;    //removing the vertex from recursion stack
+		return false;                                                                                                            
+	}
+
+
+	bool isCyclic(int V, vector<int> adj[]){
+		vector<bool> visited(V, false); 
+		vector<bool> recStack(V, false); 
+		for(int i = 0; i < V; i++) 
+			if(isCyclicUtil(i, visited, recStack, adj)) 
+				return true;
+		return false;
+	}
+};
+```
+
+#### BFS (Kahn's Algorithm)
+```cpp
+// Time Complexity: O(V + E)
+// Space Complexity: O(V)
+
+#include<bits/stdc++.h> 
+using namespace std; 
+
+void topologicalSort(vector<int> adj[], int V) { 
+    vector<int> in_degree(V, 0); 
+  
+    for (int u = 0; u < V; u++) { 
+        for (int x:adj[u]) 
+            in_degree[x]++; 
+    } 
+  
+    queue<int> q; 
+    for (int i = 0; i < V; i++) 
+        if (in_degree[i] == 0) 
+            q.push(i); 
+
+    int count=0;  
+    while (!q.empty()) { 
+        int u = q.front(); 
+        q.pop(); 
+  
+        for (int x: adj[u]) 
+            if (--in_degree[x] == 0) 
+                q.push(x); 
+        count++;
+    } 
+    if (count != V) 
+        cout << "There exists a cycle in the graph\n"; 
+    else
+        cout << "There exists no cycle in the graph\n";
+}
+
+void addEdge(vector<int> adj[], int u, int v){
+    adj[u].push_back(v);
+}
+
+int main() { 
+	int V=5;
+	vector<int> adj[V];
+	addEdge(adj,0, 1); 
+    addEdge(adj,4, 1); 
+    addEdge(adj,1, 2); 
+    addEdge(adj,2, 3); 
+    addEdge(adj,3, 1);  
+  
+    topologicalSort(adj,V);
+
+	return 0; 
+} 
+```
+
+##### Dijkstra
+```cpp
+function Dijkstra(Graph, source):
+  dist[source] ← 0                           // Initialization
+  create vertex priority queue Q
+  for each vertex v in Graph:
+      if v ≠ source
+          dist[v] ← INFINITY                 // Unknown distance from source to v
+          prev[v] ← UNDEFINED                // Predecessor of v
+      Q.add_with_priority(v, dist[v])
+  while Q is not empty:                      // The main loop
+      u ← Q.extract_min()                    // Remove and return best vertex
+      for each neighbor v of u:              // only v that are still in Q
+          alt ← dist[u] + weight(u, v)
+          if alt < dist[v]
+              dist[v] ← alt
+              prev[v] ← u
+              Q.decrease_priority(v, alt)
+  return dist, prev
+```
+
+```cpp
+****std::vector<std::pair<int, int>> get_neighbors(std::vector<std::vector<std::pair<int, int>>>& graph, int node) {
+    return graph[node];
+}
+
+int bfs(std::vector<std::vector<std::pair<int, int>>>& graph, int root, int target) {
+    std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<>> pq;
+    std::vector<int> distance(graph.size() + 1, std::numeric_limits<int>::max());
+    distance[root] = 0;
+    pq.emplace(0, root);
+    while (!pq.empty()) {
+        std::pair<int, int> cur = pq.top();
+        pq.pop();
+        int node = cur.second;
+        for (std::pair<int, int> neighbor : get_neighbors(graph, node)) {
+            int id = neighbor.first;
+            int weight = neighbor.second;
+            int d = distance[node] + weight;
+            if (distance[id] <= d) {
+                continue;
+            }
+            pq.emplace(d, id);
+            distance[id] = d;
+        }
+    }
+    return distance[target] == std::numeric_limits<int>::max() ? -1 : distance[target];
+}
+
+int shortest_path(std::vector<std::vector<std::pair<int, int>>>& graph, int a, int b) {
+    return bfs(graph, a, b);
+}
+```
