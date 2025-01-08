@@ -460,6 +460,7 @@ Node<int>* dfs(Node<int>* root, int target) {
     // - if it's null, then both left and right are null, we want to return null
     return dfs(root->right, target);
 }
+// Tim
 ```
 The key to solving tree problems using DFS is to think from the perspective of a node instead of looking at the whole tree. 
 

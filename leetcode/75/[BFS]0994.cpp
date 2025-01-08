@@ -1,7 +1,7 @@
 /**
  * @file [BFS] 0994.cpp
  * @author auntieyafen (b09705059@gmail.com)
- * @brief 
+ * @brief 994. Rotting Oranges
  * @version 0.1
  * @date 2024-11-29
  * 
@@ -150,3 +150,6 @@ public:
         return freshOrangeCount == 0 ? timeElapse : -1;
     }
 };
+
+// Time Complexity: O(m * n) where m is the number of rows and n is the number of columns in the grid
+// Space Complexity: O(m * n) for the queue in the BFS approach

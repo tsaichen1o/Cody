@@ -37,3 +37,6 @@ public:
         return searchBST(root->left, val);
     }
 };
+
+// Time Complexity: O(h), where h is the height of the tree.
+// Space Complexity: O(h), where h is the height of the tree.

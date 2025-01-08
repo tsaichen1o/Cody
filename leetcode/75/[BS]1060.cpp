@@ -39,4 +39,10 @@ public:
         // Calculate the k-th missing number using the left index.
         return nums[left - 1] + k - countMissingUpToIndex(left - 1);
     }
+    int countMissingUpToIndex(const std::vector<int>& nums, int index) {
+        return nums[index] - nums[0] - index;
+    }
 };
+
+// Time Complexity: O(log(n))
+// Space Complexity: O(1)

@@ -60,6 +60,9 @@ private:
     }
 };
 
+// Time Complexity: O(m * n) where m is the number of rows and n is the number of columns in the grid
+// Space Complexity: O(min(m, n)) for the queue in the BFS approach
+
 // DFS solution
 #include <vector>
 
@@ -101,3 +104,6 @@ private:
         dfs(grid, r, c + 1, num_rows, num_cols); // right
     }
 };
+
+// Time Complexity: O(m * n) where m is the number of rows and n is the number of columns in the grid
+// Space Complexity: O(m * n) for the recursive call stack in the DFS approach

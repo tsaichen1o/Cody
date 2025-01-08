@@ -123,3 +123,6 @@ int bfs(Coordinate start, int x, int y) {
 int get_knight_shortest_path(int x, int y) {
     return bfs({0, 0}, x, y);
 }
+
+// Time Complexity: O(8 * |x - 0| * |y - 0|) = O(|x| * |y|)
+// Space Complexity: O(|x| * |y|)

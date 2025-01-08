@@ -29,3 +29,6 @@ public:
         return maxCount;
     }
 };
+
+// Time Complexity: O(n)
+// Space Complexity: O(min(n, m)), where n is the length of the input string and m is the size of the character set.

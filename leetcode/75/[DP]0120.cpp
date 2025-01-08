@@ -48,6 +48,10 @@ private:
     }
 };
 
+// TLE
+// Time Complexity: O(2^n)
+// Space Complexity: O(n)
+
 class Solution {
 public:
     int minimumTotal(std::vector<std::vector<int>>& triangle) {
@@ -70,3 +74,6 @@ public:
         return dp[0][0];
     }
 };
+
+// Time Complexity: O(n^2)
+// Space Complexity: O(n^2)
