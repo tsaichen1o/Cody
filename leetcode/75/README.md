@@ -247,7 +247,7 @@ Let me know if you need more specific information on any of these topics!
 ## `[UF]` Union Find
 ## `[SS]` Substring / Subsequence
 ## `[HT]` Hash Table
-## `[SD]` Sliding Window
+## `[SW]` Sliding Window
 ```cpp
 int subarray_sum_fixed(std::vector<int> nums, int k) {
     int window_sum = 0;
