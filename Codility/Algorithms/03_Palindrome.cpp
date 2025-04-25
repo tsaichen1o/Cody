@@ -48,6 +48,7 @@ string isPalindrome(string S)
  
     // Reverse the string P
     reverse(P.begin(), P.end());
+    // TC: O(N)
  
     // If S is equal to P
     if (S == P) {

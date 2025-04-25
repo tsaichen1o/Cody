@@ -37,6 +37,8 @@ public:
     }
 };
 
+// Time Complexity: O(n * m), where n is the number of words and m is the average length of each word
+
 
 // faster
 class Solution {
@@ -69,3 +71,5 @@ public:
         return count;
     }
 };
+
+// Time Complexity: O(n * m), where n is the number of words and m is the average length of each word
