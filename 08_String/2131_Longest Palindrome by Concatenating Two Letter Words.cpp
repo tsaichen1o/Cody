@@ -41,7 +41,7 @@ public:
 // Time Complexity: O(n)
 // Space Complexity: O(n)
 
-// ChatGPT solution
+// ChatGPT solution (wrong)
 class Solution {
 public:
     int longestPalindrome(vector<string>& words) {
@@ -87,3 +87,30 @@ public:
 每個 word 長度都為 2，所以一對是 4 字元
 
 */
+
+// Way to reverse a string
+// Method 1: using constructor
+string reverseString(const string& s) {
+    return string(s.rbegin(), s.rend());
+}
+
+// Method 2: using reverse function
+string reverseString(const string& s) {
+    string result = s;
+    reverse(result.begin(), result.end());
+    return result;
+}
+
+// Method 3: manually swap
+string reverseString(const string& s) {
+    string result = s;
+    int left = 0, right = s.length() - 1;
+    while (left < right) {
+        swap(result[left++], result[right--]);
+    }
+    return result;
+}
+
+// Method 1 is the simplest, but it creates a new string
+// Method 2 uses STL algorithm, which is more concise
+// Method 3 can reverse in place, which is the most space-efficient
